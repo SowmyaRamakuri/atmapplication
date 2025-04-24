@@ -3,7 +3,8 @@ package atmapplication.atmsoftware;
 import java.util.Scanner;
 
 public class AtmSystem {
-
+	
+	ConsoleColors cc=new ConsoleColors();
 		 Scanner sc=new Scanner(System.in);
 		 Account[] accounts = new Account[100];
 		 int accountCount=0;
@@ -12,8 +13,8 @@ public class AtmSystem {
 		 ATM atm = new ATM();
 		 public void atm_start() throws InvalidCredientials, InsufficientBalance {
 				while(true) {
-					System.out.println(" Welcome to ATM System ");
-					System.out.println("1. Create Account\n2. Admin Login\n3. Account Login\n4. Exit");
+					System.out.println(cc.BLUE+" Welcome to ATM System "+cc.BLUE);
+					System.out.println(cc.GREEN+"1. Create Account\n2. Admin Login\n3. Account Login\n4. Exit"+cc.GREEN);
 					System.out.print("Enter your Choice: ");
 					int choice = sc.nextInt(); sc.nextLine();
 					switch(choice) {
@@ -35,7 +36,7 @@ public class AtmSystem {
 			}
 			//=======   Account creation   =================
 			public void createAccount() {
-				System.out.println("You are pleased to fill the following Details");
+				System.out.println(cc.Black+"You are pleased to fill the following Details"+cc.YELLOW);
 				System.out.println("...............................................");
 				System.out.print("Enter your username: ");
 				String userName = sc.nextLine();
@@ -49,7 +50,7 @@ public class AtmSystem {
 				double balance = sc.nextDouble();
 				sc.nextLine();
 				  if (userName.isEmpty() || location.isEmpty() || accountNum.isEmpty() || pin.isEmpty() || balance < 0) {
-				        System.out.println( "Error:Fill all deatails" );
+				        System.out.println( cc.RED+"Error:Fill all deatails"+cc.RED );
 				        return;
 				    }
 					accounts[accountCount++]=new Account(userName,location,accountNum,pin,balance);
@@ -59,7 +60,7 @@ public class AtmSystem {
 			}
 			// ======= admin login ======
 			public void adminLogin() throws InvalidCredientials, NoAccount {
-				System.out.print("Enter Password: ");
+				System.out.print(cc.Black+"Enter Password: "+cc.PINK);
 				String pass =sc.nextLine();
 				if(admin.login(pass)) {
 					System.out.println("-------Admin Login Successfully-------");
@@ -83,14 +84,14 @@ public class AtmSystem {
 									accountCount=count;
 								}
 								}else {
-									throw new NoAccount("***No Accounts to Delete***");
+									throw new NoAccount(cc.RED+"***No Accounts to Delete***"+cc.RED);
 								}break;
 						case 3: System.out.println("Logging Out...");return;
 						default:System.out.println("please enter valid choice......");
 						}
 					}
 				}else {
-					throw new InvalidCredientials(" Invalid Credientials.......");
+					throw new InvalidCredientials(cc.RED+" Invalid Credientials......."+cc.RED);
 				}
 			}
 			//user login
@@ -98,7 +99,7 @@ public class AtmSystem {
 				ConsoleColors cc=new ConsoleColors();
 				
 				
-				System.out.print("Enter Account Number: ");
+				System.out.print(cc.Black+"Enter Account Number: " +cc.Cyan);
 				String accNum = sc.nextLine();
 				System.out.print("Enter Your Pin: ");
 				String pin = sc.nextLine();
@@ -110,23 +111,23 @@ public class AtmSystem {
 						 System.out.print("Enter your choice: ");
 			             int choice = sc.nextInt(); sc.nextLine();
 			             switch(choice) {
-			             case 1: System.out.print("Enter Amount to Withdraw: ");
+			             case 1: System.out.print(cc.Black+"Enter Amount to Withdraw: "+cc.Black);
 			                        try {
 					             atm.withdraw(account, sc.nextDouble());
 					             sc.nextLine(); break;
 			                        }catch(InsufficientBalance i) {
 			                        	i.printStackTrace();
 			                        }
-			             case 2:  System.out.print("Enter Amount to Deposit: ");
+			             case 2:  System.out.print(cc.Black+"Enter Amount to Deposit: " +cc.Black);
 			             			atm.deposit(account, sc.nextDouble());
 			             			sc.nextLine(); break;
 			             case 3: System.out.println(atm.checkBalance(account)); break;
-			             case 4: System.out.println(cc.RESET+"Logging Out..!"+cc.GREEN); return;
-			             default: System.out.println("Invalid choice..!");
+			             case 4: System.out.println("Logging Out..!"+cc.GREEN); return;
+			             default: System.out.println(cc.RED+"Invalid choice..!"+cc.RED);
 			             }
 					}
 				}else {
-					throw new InvalidCredientials("Invalid crediential!plz enter valid crediential");
+					throw new InvalidCredientials(cc.RED+"Invalid crediential!plz enter valid crediential"+cc.RED);
 				}
 			}
 			public static void main(String[] args) throws InvalidCredientials, InsufficientBalance {

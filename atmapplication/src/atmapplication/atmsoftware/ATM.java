@@ -10,9 +10,9 @@ public class ATM {
 		return null;
 	}
     public void withdraw(Account account,double amount) throws InsufficientBalance {
-    	
+    	ConsoleColors dd=new ConsoleColors();
     		if(amount>account.getBalance() || amount<0) {
-    			throw new InsufficientBalance("Insufficient balance..!! Deposite balance");
+    			throw new InsufficientBalance(dd.RED+"Insufficient balance..!! Deposite balance"+dd.RED);
     		}
     		else{
     			account.setBalance(account.getBalance()-amount);
@@ -22,11 +22,12 @@ public class ATM {
     }
 
     public void deposit(Account account,double amount)throws InsufficientBalance  {
-    	 if (amount >100) {
+    	ConsoleColors dd=new ConsoleColors();
+    	 if (amount >=100) {
              account.setBalance(account.getBalance() + amount);
              System.out.println("\nDeposit successful!\n");
          } else {
-            throw new InsufficientBalance("Invalid Amount! plz enter the valid amount");
+            throw new InsufficientBalance(dd.RED+"Invalid Amount! plz deposit amount"+dd.RED);
          }
     }
 
